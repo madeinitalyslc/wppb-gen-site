@@ -62,6 +62,7 @@ app.route('/')
 		pluginAuthorURI = String(data.author.uri).length ? data.author.uri : 'http://mydomain.tld';
 		pluginAuthorEmail = String(data.author.email).length ? data.author.email : 'my@email.tld';
 		pluginNamePackage = capitalize( pluginSlug );
+		pluginNameConstants = toUpperCase( pluginSlug )
 		pluginNameInstance = pluginSlug.replace(/-/gi, '_');
 		pluginAuthorFull = pluginAuthor +' <'+ pluginAuthorEmail + '>';
 
@@ -208,6 +209,21 @@ app.route('/')
 
 				});
 
+				//find Plugin name constants
+				replace({
+
+					regex: "PLUGIN_NAME",
+
+					replacement: pluginSlug,
+
+					paths:[destination + '/' + pluginSlug],
+
+					recursive: true,
+
+					silent: true
+
+				});
+
 				//find Author URI
 				replace({
 
@@ -285,7 +301,7 @@ clean.start();
  */
 var getSourceCode = function(){
 
-	var repo = {user: 'DevinVinson', repo: 'WordPress-Plugin-Boilerplate', ref: 'master'};
+	var repo = {user: 'madeinitalyslc', repo: 'WordPress-Plugin-Boilerplate', ref: 'master'};
 
 	var destination = process.cwd() + "/source/";
 
