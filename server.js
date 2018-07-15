@@ -62,8 +62,8 @@ app.route('/')
 		pluginAuthorURI = String(data.author.uri).length ? data.author.uri : 'http://mydomain.tld';
 		pluginAuthorEmail = String(data.author.email).length ? data.author.email : 'my@email.tld';
 		pluginNamePackage = capitalize( pluginSlug );
-		pluginNameConstants = toUpperCase( pluginSlug )
 		pluginNameInstance = pluginSlug.replace(/-/gi, '_');
+		pluginNameConstant = pluginNameInstance.toUpperCase();
 		pluginAuthorFull = pluginAuthor +' <'+ pluginAuthorEmail + '>';
 
 		destination = process.cwd() + "/tmp/" + pluginSlug + '-' + new Date().getTime();
@@ -214,7 +214,7 @@ app.route('/')
 
 					regex: "PLUGIN_NAME",
 
-					replacement: pluginSlug,
+					replacement: pluginNameConstant,
 
 					paths:[destination + '/' + pluginSlug],
 
