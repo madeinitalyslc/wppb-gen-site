@@ -9,6 +9,7 @@ var port = process.env.PORT || 3000;
 var path = require('path');
 var ghdownload = require('github-download');
 var rimraf = require('rimraf');
+var mkdirp = require('mkdirp');
 var fs = require('fs-extra');
 var mime = require('mime');
 var replace = require('replace');
@@ -224,7 +225,7 @@ app.route('/')
 				//find Author URI
 				replace({
 
-					regex: "http://example.com/?",
+					regex: "https://authorurl.com",
 
 					replacement: pluginAuthorURI,
 
@@ -309,6 +310,8 @@ var getSourceCode = function () {
 	//DELETE OLD CODE
 	rimraf(destination, function () {});
 
+	// CREATE TEMP DIR
+	mkdirp(process.cwd() + "/tmp/", function () {});
 
 	//GET THE NEW CODE FORM THE REPO
 	ghdownload(repo, destination)
